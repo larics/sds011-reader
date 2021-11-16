@@ -1,4 +1,5 @@
 import serial, datetime, time
+import os
 
 from datetime import date, datetime
 
@@ -6,15 +7,22 @@ ser = serial.Serial('/dev/ttyUSB_SDS011_PM_sensor')
 
 print("Connected to /dev/ttyUSB_SDS011_PM_sensor")
 
-output_file = open("data/" + str(date.today()) + ".csv", "a+");
+identity = os.environ['IDENTITY']
+output_filename = "data/" + identity + "_" + str(date.today()) + ".csv"
+print(output_filename)
+
+output_file = open(output_filename, "a+");
 
 # if the file is empty, write header
 output_file.seek(0)
+
 if output_file.read() == '':
     output_file.write("h, min, s, pm_25, pm_10\n")
     print("Created new output file")
 else:
     print("Appending data to existing data file")
+
+output_file.close()
 
 print("h, min, sec, pm_25, pm_10")
 
@@ -32,6 +40,8 @@ while True:
     output_string = str(now.hour) + ', ' + str(now.minute) + ', ' \
       + str(now.second) + ', ' + str(pm_25) + ', ' + str(pm_10) + '\n'
 
+    output_file = open(output_filename, "a+");
     output_file.write(output_string)
+    output_file.close()
 
     print(output_string)
