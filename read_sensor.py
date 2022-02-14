@@ -48,3 +48,4 @@ while True:
     output_file.close()
 
     print(output_string)
+    time.sleep(0.95)
