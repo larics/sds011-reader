@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import serial, datetime, time
 import os
 
@@ -11,7 +13,7 @@ identity = os.environ['IDENTITY']
 output_filename = "data/" + identity + "_" + str(date.today()) + ".csv"
 print(output_filename)
 
-output_file = open(output_filename, "a+");
+output_file = open(output_filename, "a+")
 
 # if the file is empty, write header
 output_file.seek(0)
@@ -27,7 +29,7 @@ output_file.close()
 print("h, min, sec, id, pm_25, pm_10")
 
 while True:
-    print("Waiting for data:");
+    print("Waiting for data:")
     data = []
     for index in range(0, 10):
         datum = ser.read()
@@ -40,10 +42,10 @@ while True:
 
     now = datetime.now()
     output_string = str(now.hour) + ', ' + str(now.minute) + ', ' \
-      + str(now.second) + ', ' + str(sensor_id) + ', ' \
-      + str(pm_25) + ', ' + str(pm_10) + '\n'
+                    + str(now.second) + ', ' + str(sensor_id) + ', ' \
+                    + str(pm_25) + ', ' + str(pm_10) + '\n'
 
-    output_file = open(output_filename, "a+");
+    output_file = open(output_filename, "a+")
     output_file.write(output_string)
     output_file.close()
 

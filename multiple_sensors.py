@@ -9,20 +9,20 @@ serials = [serial.Serial('/dev/ttyUSB0'),
            serial.Serial('/dev/ttyUSB1'),
            serial.Serial('/dev/ttyUSB2')]
 
-print("Connected to /dev/ttyUSB0")
-print("Connected to /dev/ttyUSB1")
-print("Connected to /dev/ttyUSB2")
+for ser in serials:
+  print("Connected to port " + ser.port)
 
 output_filename = "data/" + "multi_sensor" + "_" + str(date.today()) + ".csv"
 print(output_filename)
 
+# Todo check if directory exists
 output_file = open(output_filename, "a+")
 
 # if the file is empty, write header
 output_file.seek(0)
 
 if output_file.read() == '':
-    output_file.write("h, min, s, pm_25, pm_10\n")
+    output_file.write("h, min, s, id, pm_25, pm_10\n")
     print("Created new output file")
 else:
     print("Appending data to existing data file")
