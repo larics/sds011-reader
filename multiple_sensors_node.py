@@ -7,27 +7,30 @@ import time
 
 from datetime import date, datetime
 
-try:
-    serials = [serial.Serial('/dev/ttyUSB0'),
-               serial.Serial('/dev/ttyUSB1')]
-except serial.serialutil.SerialException as e:
-    print(e)
-    rospy.logerr("Are all sensors connected?")
-    serials = [serial.Serial('/dev/ttyUSB0')]
-
-output_filename = "pm_data/" + "multi_sensor" + "_" + str(date.today()) + ".csv"
 
 node_name = "sds011_reader"
-
-# Todo expose these as config params
-id_front = 12684
-id_back = 12685
 
 if __name__ == '__main__':
 
     rospy.init_node(node_name)
     pub_pm_front = rospy.Publisher("pm_values_front", PMValues)
     pub_pm_back = rospy.Publisher("pm_values_back", PMValues)
+
+    id_front = rospy.get_param("~sds011_reader/front_sensor_id")
+    id_back = rospy.get_param("~sds011_reader/back_sensor_id")
+    front_sensor_serial = rospy.get_param("~sds011_reader/front_sensor_serial_file")
+    back_sensor_serial = rospy.get_param("~sds011_reader/back_sensor_serial_file")
+
+    output_filename = rospy.get_param("~sds011_reader/data_logging_folder") + str(date.today()) + ".csv"
+
+    try:
+        serials = [serial.Serial(front_sensor_serial),
+                   serial.Serial(back_sensor_serial)]
+    except serial.serialutil.SerialException as e:
+        print(e)
+        rospy.logerr("Are all sensors connected?")
+        serials = [serial.Serial('/dev/ttyUSB0')]
+
     for ser in serials:
       print("Connected to port " + ser.port)
 

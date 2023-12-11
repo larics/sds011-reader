@@ -1,0 +1,8 @@
+<launch>
+  <arg name="config_file" default="$(find sds011_reader)/config/sds011_reader.yml"/>
+
+  <node name="sds011_reader" pkg="sds011_reader" type="multiple_sensors_node.py" output="screen">
+    <rosparam command="load" file="$(arg config_file)"/>
+  </node>
+
+</launch>

@@ -1,0 +1,6 @@
+sds011_reader:
+  data_logging_folder: "/home/robert/FER/EKO-KOMVOZ/SDS011_senzor/SDS011_data/ROS_driver_tests"
+  front_sensor_id: 12684
+  back_sensor_id: 12684
+  front_sensor_serial_file: "/dev/ttyUSB0"
+  back_sensor_serial_file: "/dev/ttyUSB1"
