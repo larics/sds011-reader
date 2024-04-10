@@ -2,6 +2,14 @@
 
 Read data from the SDS011 PM sensor in active reporting mode.
 
+## Dependencies
+
+PIP:
+`sudo apt install python3-pip`
+
+`python -m pip install pyserial`
+
+
 ## Setup
 
 Use uart rules to create a persistent name for your device. Write the following line into a .rules file. For example `/etc/udev/rules.d/50-local.rules`
